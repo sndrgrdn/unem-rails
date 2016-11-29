@@ -1,0 +1,13 @@
+<h1><%= @menu.name %></h1>
+<ul>
+  <% @dishes.each do |dish| %>
+    <li>
+      <%= dish.name %>, <%= number_to_currency(dish.price, unit: "€") %> <br/>
+      <small>
+      <% dish.ingredients.each do |ingr| %>
+        <%= ingr.name %> /
+      <% end %>
+      </small>
+    </li>
+  <% end %>
+</ul>
