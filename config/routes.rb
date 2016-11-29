@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-  # resources :cities do
-  #   resources :restaurants do
-  #     resources :menus
-  #   end
-  # end
+
+  root 'static_pages#home'
 
   get 'scrape', to: 'scrapers#scrape'
+
+  get 'search/:action' => 'search#:action'
 
   resources :cities, :only => [:index, :create, :new]
 

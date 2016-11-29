@@ -10,14 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126144151) do
+ActiveRecord::Schema.define(version: 20161129142431) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "pg_trgm"
 
   create_table "cities", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "slug"
-    t.index ["slug"], name: "index_cities_on_slug", unique: true
+    t.index ["slug"], name: "index_cities_on_slug", unique: true, using: :btree
   end
 
   create_table "dishes", force: :cascade do |t|
@@ -26,7 +30,7 @@ ActiveRecord::Schema.define(version: 20161126144151) do
     t.integer  "menu_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["menu_id"], name: "index_dishes_on_menu_id"
+    t.index ["menu_id"], name: "index_dishes_on_menu_id", using: :btree
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -35,10 +39,10 @@ ActiveRecord::Schema.define(version: 20161126144151) do
     t.string   "sluggable_type", limit: 50
     t.string   "scope"
     t.datetime "created_at"
-    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
-    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
-    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
 
   create_table "ingredients", force: :cascade do |t|
@@ -46,7 +50,7 @@ ActiveRecord::Schema.define(version: 20161126144151) do
     t.integer  "dish_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["dish_id"], name: "index_ingredients_on_dish_id"
+    t.index ["dish_id"], name: "index_ingredients_on_dish_id", using: :btree
   end
 
   create_table "menus", force: :cascade do |t|
@@ -55,8 +59,8 @@ ActiveRecord::Schema.define(version: 20161126144151) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "slug"
-    t.index ["restaurant_id", "slug"], name: "index_menus_on_restaurant_id_and_slug", unique: true
-    t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
+    t.index ["restaurant_id", "slug"], name: "index_menus_on_restaurant_id_and_slug", unique: true, using: :btree
+    t.index ["restaurant_id"], name: "index_menus_on_restaurant_id", using: :btree
   end
 
   create_table "restaurants", force: :cascade do |t|
@@ -67,8 +71,8 @@ ActiveRecord::Schema.define(version: 20161126144151) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "slug"
-    t.index ["city_id", "slug"], name: "index_restaurants_on_city_id_and_slug", unique: true
-    t.index ["city_id"], name: "index_restaurants_on_city_id"
+    t.index ["city_id", "slug"], name: "index_restaurants_on_city_id_and_slug", unique: true, using: :btree
+    t.index ["city_id"], name: "index_restaurants_on_city_id", using: :btree
   end
 
 end
