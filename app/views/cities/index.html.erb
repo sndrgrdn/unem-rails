@@ -1,5 +1,15 @@
-<ul>
-  <% @cities.each do |city| %>
-    <li><%= link_to city.name, city %></li>
-  <% end %>
-</ul>
+<header>
+  <a href="<%= url_for(:back) %>" class="back">Back</a>
+	<h1>Alle steden</h1>
+</header>
+
+<section id="restaurant-list">
+  <ul>
+    <% @cities.each do |city| %>
+      <li>
+        <h3 class="name"><%= link_to city.name, city %></h3>
+        <hr><p>50 restaurants aanwezig</p>
+      </li>
+    <% end %>
+  </ul>
+</section>

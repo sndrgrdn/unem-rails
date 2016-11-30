@@ -1,6 +1,15 @@
-<h1><%= @city.name %></h1>
-<ul>
-  <% @restaurants.each do |restaurant| %>
-    <li><%= link_to restaurant.name, [@city, restaurant] %></li>
-  <% end %>
-</ul>
+<header>
+  <a href="<%= url_for(:back) %>" class="back">Back</a>
+	<h1><%= @city.name %></h1>
+</header>
+
+<section id="restaurant-list">
+  <ul>
+    <% @restaurants.each do |restaurant| %>
+      <li>
+        <h3 class="name"><%= link_to restaurant.name, [@city, restaurant] %></h3>
+        <hr><p><%= restaurant.city.name %></p>
+      </li>
+    <% end %>
+  </ul>
+</section>

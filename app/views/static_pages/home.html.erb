@@ -1,9 +1,22 @@
-<form action="/search/restaurants" method="get">
-  <input type="search" name="q">
-  <button style='display:none;' type="submit">Zoek</button>
-</form>
+<header>
+	<h1>Unem.co</h1>
+  <form action="/search/restaurants" method="get">
+    <input type="text" name="q">
+    <button style='display:none;' type="submit">Zoek</button>
+  </form>
+</header>
 
-<ul id="results"></ul>
+<section id="restaurant-list">
+	<ul>
+		<% @restaurants.each do |restaurant| %>
+		<li>
+			<h3 class="name"><%= link_to restaurant.name, [restaurant.city, restaurant] %></h3>
+			<hr><p><%= link_to restaurant.city.name, restaurant.city %></p>
+		</li>
+		<% end %>
+	</ul>
+</section>
+
 
 <script>
   function status(response) {
@@ -19,12 +32,12 @@
   }
 
   function render(data) {
-    const $result = $('#results');
+    const $result = $('#restaurant-list ul');
     let liArray = [];
     for(let restaurant of data.restaurants) {
       liArray.push(`<li>
-        <a href='${restaurant.url}'>${restaurant.name}</a> <br>
-        <small><a href="${restaurant.city.url}">${restaurant.city.name}</a></small>
+        <h3 class="name"><a href='${restaurant.url}'>${restaurant.name}</a></h3>
+        <hr><p><a href="${restaurant.city.url}">${restaurant.city.name}</a></p>
       </li>`);
 
     }
