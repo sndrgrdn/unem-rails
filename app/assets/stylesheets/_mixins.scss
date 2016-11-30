@@ -13,10 +13,10 @@
 //------------------------------------------------
 @mixin responsive($class) {
   @if $class == phone {
-    @media screen and (max-width: 410px) { @content }
+    @media screen and (max-width: 479px) { @content }
   }
   @else if $class == tablet {
-    @media screen and (max-width: 800px) and (min-width: 410px) { @content }
+    @media screen and (max-width: 800px) and (min-width: 480px) { @content }
   }
   @else {
     @warn "Responsive only supports 'phone' at this point."
