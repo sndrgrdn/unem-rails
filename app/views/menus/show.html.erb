@@ -1,13 +1,95 @@
-<h1><%= @menu.name %></h1>
-<ul>
-  <% @dishes.each do |dish| %>
-    <li>
-      <%= dish.name %>, <%= number_to_currency(dish.price, unit: "€") %> <br/>
-      <small>
-      <% dish.ingredients.each do |ingr| %>
-        <%= ingr.name %> /
-      <% end %>
-      </small>
-    </li>
-  <% end %>
-</ul>
+<header>
+	<a href="<%= url_for(:back) %>" class="back">Back</a>
+	<h1><%= @menu.name %></h1>
+	<form id="search" action="" method="get">
+    <div class="searchbox">
+      <input class="full" type="text" name="search" placeholder="Search for &quot;gorgonzola&quot;"><button style="display:none;" id="searchbtn" type="submit">Zoeken</button>
+    </div>
+	</form>
+</header>
+
+<section id="food-menu">
+	<ul>
+    <% @dishes.each do |dish| %>
+		<li>
+			<h3 class="dish name"><%= dish.name %></h3><h3 class="dish price"><%= number_to_currency(dish.price, unit: "€") %></h3>
+			<hr><p><%= dish.ingredients.map(&:name).join(' /') %></p>
+		</li>
+    <% end %>
+	</ul>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/2.5.0/fuse.min.js"></script>
+<script>
+
+function status(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return Promise.resolve(response)
+  } else {
+    return Promise.reject(new Error(response.statusText))
+  }
+}
+
+function json(response) {
+  return response.json()
+}
+
+function sortDishes(data) {
+  var options = {
+    shouldSort: true,
+    threshold: 0.3,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    keys: [
+      "name",
+      "ingredients.name"
+    ]
+  };
+
+  var $form = $("#search");
+  var $input = $(".searchbox input");
+  var $rows = $("#food-menu li");
+
+  $form.on('keyup', function() {
+    var searchString = $input.val().trim();
+    result = (searchString == '') ? data : searchDish(data, searchString.split(' '), options);
+    render(result)
+  })
+}
+
+function searchDish(data, searchArray, options) {
+  var fuse = new Fuse(data, options);
+  var result = fuse.search(searchArray[0]);
+
+  if(searchArray.length > 1) {
+    return searchDish(result, searchArray.slice(1), options)
+  }
+  return result;
+}
+
+function render(data) {
+  const $dishMenu = $('#food-menu ul');
+  let liArray = [];
+  for(let dish of data) {
+    liArray.push(`<li>
+  			<h3 class="dish name">${dish.name}</h3><h3 class="dish price">&euro;${Number(dish.price).toFixed(2)}</h3>
+  			<hr><p>${dish.ingredients.map(i => i.name).join(' /')}</p>
+  		</li>`);
+  }
+  if(liArray.length > 0) {
+    $dishMenu.html(liArray.join(''));
+  } else {
+    $dishMenu.html("<li><h3 class='dish name'>Geen dishes gevonden</h3></li>");
+  }
+}
+
+fetch(`<%= url_for(:only_path => false) %>.json`)
+.then(status)
+.then(json)
+.then(sortDishes)
+.catch(function(error) {
+  console.log('Request failed', error);
+});
+
+</script>

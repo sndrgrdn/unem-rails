@@ -1,6 +1,6 @@
 <form action="/search/restaurants" method="get">
-  <input type="text" name="q">
-  <button type="submit">Zoek</button>
+  <input type="search" name="q">
+  <button style='display:none;' type="submit">Zoek</button>
 </form>
 
 <ul id="results"></ul>
@@ -28,7 +28,11 @@
       </li>`);
 
     }
-    $result.html(liArray.join(''));
+    if(liArray.length > 0) {
+      $result.html(liArray.join(''));
+    } else {
+      $result.html("<li>Geen restaurants gevonden</li>");
+    }
   }
 
   $('form').submit(function(e) {
@@ -37,9 +41,8 @@
     fetch(`/search/restaurants?q=${search}`)
     .then(status)
     .then(json)
-    .then(function(data) {
-      render(data);
-    }).catch(function(error) {
+    .then(render)
+    .catch(function(error) {
       console.log('Request failed', error);
     });
 

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
-  get 'scrape', to: 'scrapers#scrape'
+  # get 'scrape', to: 'scrapers#scrape'
 
   get 'search/:action' => 'search#:action'
 

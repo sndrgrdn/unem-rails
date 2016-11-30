@@ -1,0 +1,50 @@
+//------------------------------------------------
+// Font-size in pixels and rems
+// Usage: @include fontsize(18);
+//------------------------------------------------
+@mixin fontsize($size) {
+  font-size: $size+px;
+  font-size: $size/10*0.625+rem;
+}
+//
+//------------------------------------------------
+// Simple responsive mixin for phones
+// Usage: @include responsive(phone) { ... }
+//------------------------------------------------
+@mixin responsive($class) {
+  @if $class == phone {
+    @media screen and (max-width: 410px) { @content }
+  }
+  @else if $class == tablet {
+    @media screen and (max-width: 800px) and (min-width: 410px) { @content }
+  }
+  @else {
+    @warn "Responsive only supports 'phone' at this point."
+  }
+}
+//
+//------------------------------------------------
+// All prefixes for both keyframes and animation
+// Usage: @include ez-keyframe(bounce) { ... }
+//        @include ez-animate(bounce 1s infinite);
+//------------------------------------------------
+@mixin ez-keyframe($name) {
+  @-webkit-keyframes #{$name} {
+    @content
+  }
+  @-moz-keyframes #{$name} {
+    @content
+  }
+  @-o-keyframes #{$name} {
+    @content
+  }
+  @keyframes #{$name} {
+    @content
+  }
+}
+@mixin ez-animate($properties) {
+  -webkit-animation: $properties;
+  -moz-animation: $properties;
+  -o-animation: $properties;
+  animation: $properties;
+}
