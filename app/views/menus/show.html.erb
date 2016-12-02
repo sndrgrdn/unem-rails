@@ -51,11 +51,12 @@ function sortDishes(data) {
   var $input = $(".searchbox input");
   var $rows = $("#food-menu li");
 
-  $form.on('keyup', function() {
+  $form.on('keyup keydown', function(e) {
     var searchString = $input.val().trim();
     result = (searchString == '') ? data : searchDish(data, searchString.split(' '), options);
-    render(result)
-  })
+    render(result);
+  });
+	$form.submit(false);
 }
 
 function searchDish(data, searchArray, options) {
@@ -80,7 +81,7 @@ function render(data) {
   if(liArray.length > 0) {
     $dishMenu.html(liArray.join(''));
   } else {
-    $dishMenu.html("<li><h3 class='dish name'>Geen dishes gevonden</h3></li>");
+    $dishMenu.html("<li class='not-found'>Geen gerechten gevonden</li>");
   }
 }
 

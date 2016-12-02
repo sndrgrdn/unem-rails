@@ -1,7 +1,7 @@
 <header>
 	<h1>Unem.co</h1>
   <form action="/search/restaurants" method="get">
-    <input type="text" name="q">
+    <input type="text" name="q" placeholder="Zoek restaurant">
     <button style='display:none;' type="submit">Zoek</button>
   </form>
 </header>
@@ -44,7 +44,7 @@
     if(liArray.length > 0) {
       $result.html(liArray.join(''));
     } else {
-      $result.html("<li>Geen restaurants gevonden</li>");
+      $result.html("<li class='not-found'>Geen restaurants gevonden</li>");
     }
   }
 

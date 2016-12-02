@@ -25,6 +25,7 @@ $font-stack-plain: sans-serif;
 }
 body {
   background-color: #F3F3F3;
+  font-family: $font-stack-plain;
 }
 //
 //------------------------------------------------
@@ -263,4 +264,9 @@ section#restaurant-list {
       }
     }
   }
+}
+
+.not-found {
+  padding: 16px;
+  font-weight: bold;
 }
