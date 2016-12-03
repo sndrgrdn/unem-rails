@@ -63,7 +63,7 @@ function render(data) {
   for(let dish of data) {
     liArray.push(`<li>
   			<h3 class="dish name">${dish.name}</h3><h3 class="dish price">&euro;${Number(dish.price).toFixed(2)}</h3>
-  			<hr><p>${dish.ingredients.map(i => i.name).join(' /')}</p>
+  			<hr><p>${dish.ingredients.map(i => i.name).join(', ')}</p>
   		</li>`);
   }
   if(liArray.length > 0) {

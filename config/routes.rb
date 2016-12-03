@@ -2,9 +2,9 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
-  # get 'scrape', to: 'scrapers#scrape'
+  get 'scrape', to: 'scrapers#scrape'
 
-  get 'search/:action' => 'search#:action'
+  get 'search(/:action)', controller: 'search', action: :action, as: "search"
 
   resources :cities, :only => [:index, :create, :new]
 

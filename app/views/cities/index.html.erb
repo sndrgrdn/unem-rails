@@ -8,7 +8,7 @@
     <% @cities.each do |city| %>
       <li>
         <h3 class="name"><%= link_to city.name, city %></h3>
-        <hr><p>50 restaurants aanwezig</p>
+        <hr><p><%= city.restaurants.size %> restaurants aanwezig</p>
       </li>
     <% end %>
   </ul>

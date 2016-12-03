@@ -3,7 +3,7 @@ class MenusController < ApplicationController
 
   def show
     @menu = @restaurant.menus.friendly.find(params[:id])
-    @dishes = @menu.dishes.includes(:ingredients)
+    @dishes = @menu.dishes.order(id: :asc).includes(:ingredients).order('ingredients.id')
   end
 
   private

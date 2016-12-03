@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 
   def restaurants
     if clean_params[:q].empty?
-      @restaurants = Restaurant.includes(:city).order("RANDOM()").limit(50)
+      @restaurants = Restaurant.includes(:city).sample(50)
     else
       @restaurants = Restaurant.fuzzy_search(name: clean_params[:q]).includes(:city)
     end
