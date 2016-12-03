@@ -1,9 +1,7 @@
 class ScrapersController < ApplicationController
 
   def scrape
-    ingredients = pizza[2][:ingredients].split(',')
-    ingredients = ingredients + ingredients.pop.split(' en ') if ingredients.size > 1
-    render plain: ingredients
+    render plain: 'hoi'
   end
 
   def pizza
