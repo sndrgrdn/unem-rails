@@ -17,7 +17,7 @@
 <section id="categories">
 	<ul>
     <% @menus.each do |menu| %>
-      <li><%= link_to menu.name, [@city, @restaurant, menu], class: "menu-#{menu.menu_type.name}" %></li>
+      <li class="menu-<%= menu.menu_type.name %>"><%= link_to menu.name, [@city, @restaurant, menu] %></li>
     <% end %>
 	</ul>
 </section>
