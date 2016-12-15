@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h1>Menu Type Search Index</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <th>#</th>
+    <th>Searchable</th>
+    <th>MenuType</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+    <% @menu_type_searches.each do |mts| %>
+    <tr>
+      <td><%= mts.id %></td>
+      <td><%= mts.searchable.capitalize %></td>
+      <td><%= mts.menu_type.name.capitalize %></td>
+      <td>
+        <%= form_tag admin_menu_type_search_path(mts), method: :patch, class: 'form-inline' do %>
+        <%= collection_select :menu_type_search, :menu_type_id, @menu_types, :id, :name, { prompt: true }, { class: 'form-control' } %>
+        <%= submit_tag "Update", class: 'btn btn-primary' %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

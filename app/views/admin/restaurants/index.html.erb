@@ -1,0 +1,22 @@
+<div class="page-header">
+  <h1>Restaurant's</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <th>#</th>
+    <th>Name</th>
+    <th>City</th>
+    <th>Slug</th>
+  </thead>
+  <tbody>
+    <% @restaurants.each do |restaurant| %>
+    <tr>
+      <td><%= restaurant.id %></td>
+      <td><%= restaurant.name %></td>
+      <td><%= restaurant.city.name %></td>
+      <td><%= restaurant.slug %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

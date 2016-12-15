@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-
   root 'static_pages#home'
+
+  devise_for :users, layout: 'admin'
+
+  namespace :admin do
+    root 'menu_type_searches#index', as: 'root'
+    resources :menu_type_searches, :menus, :restaurants
+  end
 
   get 'scrape', to: 'scrapers#scrape'
 

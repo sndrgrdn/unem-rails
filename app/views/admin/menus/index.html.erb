@@ -1,0 +1,22 @@
+<div class="page-header">
+  <h1>Menu's</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <th>#</th>
+    <th>Name</th>
+    <th>Restaurant</th>
+    <th>Slug</th>
+  </thead>
+  <tbody>
+    <% @menus.each do |menu| %>
+    <tr>
+      <td><%= menu.id %></td>
+      <td><%= menu.name %></td>
+      <td><%= menu.restaurant.name %></td>
+      <td><%= menu.slug %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
