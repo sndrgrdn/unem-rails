@@ -1,7 +1,7 @@
 class Admin::MenuTypeSearchesController < AdminController
   def index
     @menu_types = MenuType.all
-    @menu_type_searches = MenuTypeSearch.order(id: :asc)
+    @menu_type_searches = MenuTypeSearch.order(id: :asc).includes(:menu_type)
   end
 
   def update
