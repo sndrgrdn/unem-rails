@@ -8,7 +8,8 @@ def thuisbezorgd(city: '', url: '', website: '', facebook: '')
 
   menus.each do |menu|
     menu_name = menu.css('span.menucategorytitle').text
-    m = Menu.create(name: menu_name.strip.capitalize, restaurant: r)
+    mt = MenuTypeSearch.find_type(menu_name.strip)
+    m = Menu.create(name: menu_name.strip.capitalize, restaurant: r, menu_type: mt)
 
     menu.next_element.css('.menucardproduct').each do |dish|
       title = dish.css('.menucardproductname > text()').text

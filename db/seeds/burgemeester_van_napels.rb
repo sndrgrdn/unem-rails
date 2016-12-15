@@ -5,7 +5,8 @@ c = City.find_or_create_by name: 'Leeuwarden'
 r = Restaurant.create(name: 'Burgemeester van Napels', city: c)
 
 menus.each do |menu|
-  m = Menu.create(name: menu['id'].capitalize, restaurant: r)
+  mt = MenuTypeSearch.find_type(menu['id'].downcase)
+  m = Menu.create name: menu['id'].capitalize, restaurant: r, menu_type: mt
 
   menu.css('.dish').each do |dish|
     d = Dish.create(name: dish.css('.title').text.capitalize, price: dish.css('.price').text.slice(2..6).sub(',', '.'), menu: m)

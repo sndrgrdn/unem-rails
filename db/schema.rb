@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161129142431) do
+ActiveRecord::Schema.define(version: 20161212135206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,12 +53,29 @@ ActiveRecord::Schema.define(version: 20161129142431) do
     t.index ["dish_id"], name: "index_ingredients_on_dish_id", using: :btree
   end
 
+  create_table "menu_type_searches", force: :cascade do |t|
+    t.string   "searchable"
+    t.integer  "menu_type_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["menu_type_id"], name: "index_menu_type_searches_on_menu_type_id", using: :btree
+    t.index ["searchable"], name: "index_menu_type_searches_on_searchable", using: :btree
+  end
+
+  create_table "menu_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "menus", force: :cascade do |t|
     t.string   "name"
     t.integer  "restaurant_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "slug"
+    t.integer  "menu_type_id"
+    t.index ["menu_type_id"], name: "index_menus_on_menu_type_id", using: :btree
     t.index ["restaurant_id", "slug"], name: "index_menus_on_restaurant_id_and_slug", unique: true, using: :btree
     t.index ["restaurant_id"], name: "index_menus_on_restaurant_id", using: :btree
   end
@@ -75,4 +92,6 @@ ActiveRecord::Schema.define(version: 20161129142431) do
     t.index ["city_id"], name: "index_restaurants_on_city_id", using: :btree
   end
 
+  add_foreign_key "menu_type_searches", "menu_types"
+  add_foreign_key "menus", "menu_types"
 end

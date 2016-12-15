@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  searchable: MyString
+  menu_type: one
+
+two:
+  searchable: MyString
+  menu_type: two

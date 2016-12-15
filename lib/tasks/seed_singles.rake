@@ -1,4 +1,6 @@
 # lib/tasks/seed_scrapers.rake
+
+# db:seed:{filename}
 namespace :db do
   namespace :seed do
     Dir[File.join(Rails.root, 'db', 'seeds', '*.rb')].each do |filename|

@@ -6,6 +6,7 @@
 // 0. Sass imports, global variables, etc.
 //------------------------------------------------
 @import "mixins";
+@import "menus";
 
 $color-blue: hsl(230,100%,30%);
 $color-black: hsl(0,0%,10%);
@@ -121,26 +122,6 @@ section#categories {
           height: 33.333333333336vw;
           line-height: 58vw;
         }
-      }
-      &:nth-of-type(1) a {
-        background-image: image-url('icon-snacks.png');
-        background-size: 59px 88px;
-      }
-      &:nth-of-type(2) a {
-        background-image: image-url('icon-pizza.png');
-        background-size: 72px 80px;
-      }
-      &:nth-of-type(3) a {
-        background-image: image-url('icon-cloche.png');
-        background-size: 111px 69px;
-      }
-      &:nth-of-type(4) a {
-        background-image: image-url('icon-dessert.png');
-        background-size: 41px 93px;
-      }
-      &:nth-of-type(5) a {
-        background-image: image-url('icon-drinks.png');
-        background-size: 41px 76px;
       }
     }
   }

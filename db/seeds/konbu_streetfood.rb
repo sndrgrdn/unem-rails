@@ -9,8 +9,8 @@ r = Restaurant.create(name: 'Konbu Streetfood', website: 'http://konbustreetfood
 puts "Created Restaurant: #{r.name}"
 
 food_menus.each do |menu|
-  m = Menu.create(name: menu.css('h2').text.strip, restaurant: r)
-  puts "Created food-menu: #{m.name}"
+  mt = MenuTypeSearch.find_type(menu.css('h2').text.strip)
+  m = Menu.create name: menu.css('h2').text.strip, restaurant: r, menu_type: mt
 
   menu.css('tr').each do |dish|
     title = dish.css('strong')[0]
@@ -18,7 +18,6 @@ food_menus.each do |menu|
     title = title.nil? ? '' : title.text
     price = price.nil? ? '' : price.text
     d = Dish.create(name: title.strip.capitalize, price: price, menu: m)
-    puts "Created dish: #{d.name}"
 
     ingredients = dish.css('td')[0].xpath('text()').text.split(',')
     ingredients = ingredients + ingredients.pop.split(' and ') if ingredients.size > 1
@@ -32,14 +31,13 @@ end
 bev_menus = doc.css('#beverages-section .tab-pane')
 
 bev_menus.each do |menu|
-  m = Menu.create(name: menu.css('h2').text.strip, restaurant: r)
-  puts "Created beverage-menu: #{m.name}"
+  mt = MenuTypeSearch.find_type(menu.css('h2').text.strip)
+  m = Menu.create name: menu.css('h2').text.strip, restaurant: r, menu_type: mt
 
   menu.css('tr').each do |dish|
     title = dish.css('td')[0].text
     price = dish.css('td')[1].text
     d = Dish.create(name: title.strip.capitalize, price: price, menu: m)
-    puts "Created dish: #{d.name}"
   end
 end
 

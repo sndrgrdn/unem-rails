@@ -569,17 +569,15 @@ puts "Found city: #{c.name}"
 r = Restaurant.create(name: 'Pizzeria Italia', website: 'http://www.pizzeriaitaliagroningen.nl/', facebook: 'https://www.facebook.com/pages/Pizzeria-Italia/298332623595596', city: c)
 puts "Created Restaurant: #{r.name}"
 
-m = Menu.create(name: 'Pizza', restaurant: r)
-puts "Created food-menu: #{m.name}"
+mt = MenuTypeSearch.find_by(searchable: "Pizza\'s".downcase).menu_type
+m = Menu.create name: "Pizza\'s", restaurant: r, menu_type: mt
 
 pizzas.each do |dish|
   d = Dish.create(name: dish[:name].capitalize, price: dish[:price], menu: m)
-  puts "Created dish: #{d.name}"
 
   ingredients = dish[:ingredients].split(',')
   ingredients = ingredients + ingredients.pop.split(' en ') if ingredients.size > 1
   ingredients.each do |ingredient|
     i = Ingredient.create(name: ingredient.strip.capitalize, dish: d)
-    puts "Add #{i.name} to #{d.name}"
   end
 end
