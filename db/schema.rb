@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161215131244) do
+ActiveRecord::Schema.define(version: 20161216105220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(version: 20161215131244) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "slug"
+    t.string   "image_uid"
+    t.string   "image_name"
     t.index ["city_id", "slug"], name: "index_restaurants_on_city_id_and_slug", unique: true, using: :btree
     t.index ["city_id"], name: "index_restaurants_on_city_id", using: :btree
   end

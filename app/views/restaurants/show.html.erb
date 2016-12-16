@@ -5,7 +5,7 @@
 			<a href="<%= @restaurant.website %>">Website</a>
 		</div>
 		<div id="restaurant--logo">
-			<%= image_tag 'uurwerker.png' %>
+			<%= image_tag @restaurant.image.thumb('100x100#').url %>
 
 		</div>
 		<div class="social right">

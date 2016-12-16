@@ -1,5 +1,8 @@
 class Restaurant < ApplicationRecord
   extend FriendlyId
+  dragonfly_accessor :image do
+    default 'app/assets/images/uurwerker.png'
+  end
 
   has_many :menus, dependent: :destroy
   belongs_to :city

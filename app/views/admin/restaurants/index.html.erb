@@ -8,6 +8,7 @@
     <th>Name</th>
     <th>City</th>
     <th>Slug</th>
+    <th>Actions</th>
   </thead>
   <tbody>
     <% @restaurants.each do |restaurant| %>
@@ -16,6 +17,7 @@
       <td><%= restaurant.name %></td>
       <td><%= restaurant.city.name %></td>
       <td><%= restaurant.slug %></td>
+      <td><%= link_to 'edit', edit_admin_restaurant_path(restaurant) %></td>
     </tr>
     <% end %>
   </tbody>

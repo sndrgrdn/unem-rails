@@ -1,0 +1,11 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= bootstrap_form_for [:admin, @restaurant] do |f| %>
+      <%= f.text_field :name %>
+      <%= f.file_field :image %>
+      <%= f.submit class: 'btn btn-primary' %>
+    <% end %>
+    <hr>
+    <%= image_tag @restaurant.image.url if @restaurant.image_stored? %>
+  </div>
+</div>
