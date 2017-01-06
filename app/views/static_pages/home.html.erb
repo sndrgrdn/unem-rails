@@ -9,7 +9,7 @@
 <section id="restaurant-list">
 	<ul>
 		<% @restaurants.each do |restaurant| %>
-		<li>
+		<li data-href="<%= url_for [restaurant.city, restaurant] %>">
 			<h3 class="name"><%= link_to restaurant.name, [restaurant.city, restaurant] %></h3>
 			<hr><p><%= link_to restaurant.city.name, restaurant.city %></p>
 		</li>
@@ -23,7 +23,7 @@
     const $result = $('#restaurant-list ul');
     let liArray = [];
     for(let restaurant of data.restaurants) {
-      liArray.push(`<li>
+      liArray.push(`<li data-href='${restaurant.url}'>
         <h3 class="name"><a href='${restaurant.url}'>${restaurant.name}</a></h3>
         <hr><p><a href="${restaurant.city.url}">${restaurant.city.name}</a></p>
       </li>`);
@@ -49,4 +49,13 @@
 
     e.preventDefault();
   })
+
+  $('#restaurant-list').on('click', function(event) {
+		console.log(event.taget.id)
+		// console.log(event.target, $(this))
+    // document.location = $(this).data('href')
+  })
+	$('#restaurant-list li a').on('click', function(event) {
+		event.stopPropagation();
+	})
 </script>

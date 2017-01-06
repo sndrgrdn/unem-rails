@@ -2,6 +2,8 @@
   <div class="panel-body">
     <%= bootstrap_form_for [:admin, @restaurant] do |f| %>
       <%= f.text_field :name %>
+      <%= f.text_field :facebook %>
+      <%= f.text_field :website %>
       <%= f.file_field :image %>
       <%= f.submit class: 'btn btn-primary' %>
     <% end %>

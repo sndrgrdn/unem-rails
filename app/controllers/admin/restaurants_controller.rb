@@ -16,6 +16,6 @@ class Admin::RestaurantsController < AdminController
   private
 
   def clean_params
-    params.require(:restaurant).permit(:name, :image)
+    params.require(:restaurant).permit(:name, :image, :facebook, :website)
   end
 end

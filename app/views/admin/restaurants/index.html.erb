@@ -5,6 +5,7 @@
 <table class="table table-striped">
   <thead>
     <th>#</th>
+    <th></th>
     <th>Name</th>
     <th>City</th>
     <th>Slug</th>
@@ -14,10 +15,11 @@
     <% @restaurants.each do |restaurant| %>
     <tr>
       <td><%= restaurant.id %></td>
+      <td><%= image_tag restaurant.image.thumb('20x20#').url %></td>
       <td><%= restaurant.name %></td>
       <td><%= restaurant.city.name %></td>
       <td><%= restaurant.slug %></td>
-      <td><%= link_to 'edit', edit_admin_restaurant_path(restaurant) %></td>
+      <td><%= link_to '[edit]', edit_admin_restaurant_path(restaurant) %></td>
     </tr>
     <% end %>
   </tbody>

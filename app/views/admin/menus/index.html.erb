@@ -2,7 +2,7 @@
   <h1>Menu's</h1>
 </div>
 
-<table class="table table-striped">
+<table class="table table-striped table-hover table-cursor">
   <thead>
     <th>#</th>
     <th>Name</th>
@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     <% @menus.each do |menu| %>
-    <tr>
+    <tr data-href="<%= url_for admin_menu_path(menu) %>">
       <td><%= menu.id %></td>
       <td><%= menu.name %></td>
       <td><%= menu.restaurant.name %></td>
@@ -20,3 +20,9 @@
     <% end %>
   </tbody>
 </table>
+
+<script>
+$('.table > tbody > tr').on('click', function() {
+  document.location = $(this).data('href');
+});
+</script>

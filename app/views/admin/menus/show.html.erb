@@ -1,0 +1,20 @@
+<div class="page-header">
+  <h1><%= @menu.name %></h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <th>#</th>
+    <th>Name</th>
+    <th>Ingredients</th>
+  </thead>
+  <tbody>
+    <% @menu.dishes.each do |dish| %>
+    <tr>
+      <td><%= dish.id %></td>
+      <td><%= dish.name %></td>
+      <td><%= dish.ingredients.map(&:name).join(', ') %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

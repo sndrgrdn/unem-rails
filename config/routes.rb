@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'menu_type_searches#index', as: 'root'
-    resources :menu_type_searches, :menus, :restaurants
+    resources :menu_type_searches, :menus, :restaurants, :cities
   end
 
   get 'scrape', to: 'scrapers#scrape'
