@@ -16,9 +16,14 @@
 </section>
 
 <script>
+'use strict';
+
+const $form = $("#search");
+const $input = $(".searchbox input");
+const $dishMenu = $('#food-menu ul');
 
 function sortDishes(data) {
-  var options = {
+  const options = {
     shouldSort: true,
     threshold: 0.3,
     location: 0,
@@ -30,13 +35,9 @@ function sortDishes(data) {
     ]
   };
 
-  var $form = $("#search");
-  var $input = $(".searchbox input");
-  var $rows = $("#food-menu li");
-
   $form.on('keyup keydown', function(e) {
-    var searchString = $input.val().trim();
-    var result = (searchString == '') ? data : searchDish(data, searchString.split(' '), options);
+    const searchString = $input.val().trim();
+    const result = (searchString == '') ? data : searchDish(data, searchString.split(' '), options);
     render(result);
   });
 
@@ -49,8 +50,8 @@ function sortDishes(data) {
 }
 
 function searchDish(data, searchArray, options) {
-  var fuse = new Fuse(data, options);
-  var result = fuse.search(searchArray[0]);
+  const fuse = new Fuse(data, options);
+  const result = fuse.search(searchArray[0]);
 
   if(searchArray.length > 1) {
     return searchDish(result, searchArray.slice(1), options)
@@ -59,19 +60,28 @@ function searchDish(data, searchArray, options) {
 }
 
 function render(data) {
-  const $dishMenu = $('#food-menu ul');
-  let liArray = [];
-  for(let dish of data) {
-    liArray.push(`<li>
-  			<h3 class="dish name">${dish.name}</h3><h3 class="dish price">&euro;${Number(dish.price).toFixed(2)}</h3>
-  			<hr><p>${dish.ingredients.map(i => i.name).join(', ')}</p>
-  		</li>`);
-  }
-  if(liArray.length > 0) {
-    $dishMenu.html(liArray.join(''));
-  } else {
-    $dishMenu.html("<li class='not-found'>Geen gerechten gevonden</li>");
-  }
+  const liArray = makeList(data, []);
+
+	if (liArray.length > 0) {
+		$dishMenu.html(liArray.join(''));
+	} else {
+		$dishMenu.html("<li class='not-found'>Geen gerechten gevonden</li>");
+	}
+}
+
+function makeList(data, array) {
+	const [head, ...tail] = data;
+
+	if(head) {
+		const li =
+		`<li>
+		  <h3 class="dish name">${head.name}</h3><h3 class="dish price">&euro;${Number(head.price).toFixed(2)}</h3>
+		  <hr><p>${head.ingredients.map(i => i.name).join(', ')}</p>
+		</li>`;
+		return makeList(tail, array.concat(li));
+	} else {
+		return array;
+	}
 }
 
 fetch(`<%= url_for(:only_path => false) %>.json`)
