@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require turbolinks
-//= require_tree .
 
 function status(response) {
   if (response.status >= 200 && response.status < 300) {
