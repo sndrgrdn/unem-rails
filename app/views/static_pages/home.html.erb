@@ -19,25 +19,34 @@
 
 
 <script>
-  function render(data) {
-    const $result = $('#restaurant-list ul');
-    let liArray = [];
-    for(let restaurant of data.restaurants) {
-      liArray.push(`<li data-href='${restaurant.url}'>
-        <h3 class="name"><a href='${restaurant.url}'>${restaurant.name}</a></h3>
-        <hr><p><a href="${restaurant.city.url}">${restaurant.city.name}</a></p>
-      </li>`);
+	const $restaurantList = $('#restaurant-list ul');
 
-    }
+  function render(data) {
+    const liArray = makeList(data.restaurants, []);
+
     if(liArray.length > 0) {
-      $result.html(liArray.join(''));
+      $restaurantList.html(liArray.join(''));
     } else {
-      $result.html("<li class='not-found'>Geen restaurants gevonden</li>");
+      $restaurantList.html("<li class='not-found'>Geen restaurants gevonden</li>");
     }
   }
 
+	function makeList(data, restaurants) {
+		const [head, ...tail] = data;
+
+		if (head) {
+			const li = `<li data-href='${head.url}'>
+        <h3 class="name"><a href='${head.url}'>${head.name}</a></h3>
+        <hr><p><a href="${head.city.url}">${head.city.name}</a></p>
+      </li>`;
+			return makeList(tail, restaurants.concat(li));
+		} else {
+			return restaurants;
+		}
+	}
+
   $('form').submit(function(e) {
-    let search = $(this).find('input').val();
+    const search = $(this).find('input').val();
 
     fetch(`/search/restaurants?q=${search}`)
     .then(status)
