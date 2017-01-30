@@ -51,9 +51,7 @@
   })
 
   $('#restaurant-list').on('click', function(event) {
-		console.log(event.taget.id)
-		// console.log(event.target, $(this))
-    // document.location = $(this).data('href')
+    document.location = event.target.parentElement.dataset.href;
   })
 	$('#restaurant-list li a').on('click', function(event) {
 		event.stopPropagation();
